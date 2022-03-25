@@ -1,0 +1,112 @@
+<html>
+
+<head>
+
+    <title>Bilgisayar Grafikleri Ödev1</title>
+
+</head>
+
+<body bgcolor="#b8cbe3">
+    <table width="512" border="0" align="center" cellpadding="2" cellspacing="2">
+
+        <tr>
+            <td><canvas id="glcanvas" width="512" height="512">
+                    Tarayıcınız HTML5 canvas desteklemiyor
+                </canvas></td>
+
+        </tr>
+        <table width="612" border="1" bgcolor="#dff5d0" align="center" cellspacing="2" cellpadding="2">
+
+            <tr>
+                <td>
+
+
+
+
+                    <div>
+                        Döndür-180 <input style="width: 400px;" id="rotate" type="range" min="-180" max="180" step="1" value="0" />
+                        180
+                    </div>
+
+
+                </td>
+                <td>
+                    <label for="color_inp">Renk Paleti</label>
+                    <input type="color" id="color_input" name="color_inp" value="#EB0A0A">
+                </td>
+
+
+            </tr>
+
+
+            <tr>
+                <td>
+                    <table width="512" border="0" cellspacing="2" cellpadding="2">
+
+                        <tr>
+                            <td align="center">
+                                <button id="toggleRotation">
+                                    Döndürmeyi Başlat
+                                </button>
+                                <button id="changeDirection">
+                                    Döndürme Saat Yönünde
+                                </button>
+                            </td>
+
+                            <td align="left">
+                                <select style="width: 160px;" name="mymenu" size="2" id="mymenu">
+                                    <option value="1">Daha Yavaş Dön</option>
+									<option value="0">Daha Hızlı Dön</option>
+                                    
+                                </select>
+                            </td>
+                        </tr>
+
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td><i><b>Yukarı aşağı hareket etmek için 1 ve 2, sağa sola hareket etmek için 3 ve 4 tuşlarını kullanabilirsiniz.
+				Yaklaşıp uzaklaşmak için fare tekerleğini kullanabilirsiniz</b></i>
+                </td>
+            </tr>
+           
+
+  
+          
+        </table>
+    </table>
+
+    <hr>
+	
+	    <script id="fragment-shader" type="x-shader/xfragment">
+        precision mediump float;
+        uniform vec3 mycolor;
+        void main() {
+            gl_FragColor = vec4(mycolor,1);
+        }
+        </script>
+    <script id="vertex-shader" type="x-shader/xvertex">
+        attribute vec4 vPosition;
+        attribute vec4 aVertexColor;
+        uniform float theta;
+        uniform vec2 translate;
+        uniform float scale;
+        void main() {
+            gl_Position.x = (cos(theta) * vPosition.x  - sin(theta) * vPosition.y + translate.x)*scale;
+            gl_Position.y = (sin(theta) * vPosition.x + cos(theta) * vPosition.y + translate.y)*scale;
+            gl_Position.z = 0.0;
+            gl_Position.w = 1.0;
+        }
+       </script>
+
+
+
+    <script src="../common/initShaders.js"></script>
+    <script src="../common/MV.js"></script>
+    <script src="../common/webgl-utils.js"></script>
+    <script src="19290242.js"></script>
+
+</body>
+
+</html>
